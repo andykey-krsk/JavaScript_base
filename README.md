@@ -1,1 +1,1 @@
-# JavaScript_base
+# JavaScript Базовый курс
