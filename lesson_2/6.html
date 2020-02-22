@@ -20,9 +20,9 @@
 
         function getEnding(money){
             let end='';
-            end = String(money).length-1;
+            end = String(money).charAt(String(money).length-1);
             
-            switch(end.charAt(index)){
+            switch(end){
                 case '1':
                     return 'рубль';
                     break;
