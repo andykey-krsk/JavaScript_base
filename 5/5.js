@@ -3,9 +3,9 @@
 Перед вами находится массив с продуктами в интернет-магазине. 
 Вам нужно:
 1.  Получить все товары, у которых есть фотографии, 
-    можете использовать метод filter 
+    можете использовать метод filter https://mzl.la/2qROQkT
 2.  Отсортируйте товары по цене (от низкой цены к высокой), 
-    можете использовать метод sort 
+    можете использовать метод sort https://mzl.la/2Y79hbZ
 */
 const products = [ 
     { 
@@ -29,16 +29,14 @@ const products = [
     }, 
 ];
 
-function getProductFoto(products){
-    let arr = [];
-    arr = products.filter()
-    return arr;
-}
+let productsWithPhoto = products.filter(function(element) {
+    return ("photos" in element) && (element.photos.length !== 0);
+});
 
-function sortProduct(products){
-    return arr;
-}
+let productsSortByPrice = products.sort(function(a, b) {
+    return a.price - b.price
+});
 
-console.log(getProductFoto(products));
+console.log(productsWithPhoto);
 
-console.log(sortProduct(products));
+console.log(productsSortByPrice);
