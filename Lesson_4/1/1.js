@@ -26,6 +26,7 @@ function numberToObject(number){
         let numberObject = new NumberObj (parseInt(number[0]), parseInt(number[1]), parseInt(number[2]));
         return numberObject;
     } else {
+        console.log(`Переданное число ${number} за пределами диапазона`)        
         return numberObject;
     }
 }
