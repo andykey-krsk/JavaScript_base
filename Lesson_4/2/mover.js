@@ -5,18 +5,18 @@ let mover = {
      */
     getDirection() {
         // Доступные значения ввода.
-        const availableDirections = [2, 4, 6, 8];
+        const availableDirections = [2, 4, 6, 8, 1, 3, 7, 9];
 
         while (true) {
             // Получаем от пользователя направление.
-            let direction = parseInt(prompt('Введите число (2, 4, 6 или 8), куда вы хотите переместиться, "Отмена" для выхода.'));
+            let direction = parseInt(prompt('Введите число (2, 4, 6, 8 или 1, 3, 7, 9), куда вы хотите переместиться, "Отмена" для выхода.'));
             if (isNaN(direction)) {
                 return null;
             }
             // Если направление не одно из доступных, то сообщаем что надо ввести корректные данные
             // и начинаем новую итерацию.
             if (!availableDirections.includes(direction)) {
-                alert('Для перемещения необходимо ввести одно из чисел 2, 4, 6 или 8.');
+                alert('Для перемещения необходимо ввести одно из чисел 2, 4, 6, 8 или 1, 3, 7, 9.');
                 continue;
             }
 
@@ -36,22 +36,81 @@ let mover = {
             x: player.x,
             y: player.y,
         };
+        
+        /**
+         * Проверяем вышел игрок за пределы игрового поля 
+         * @param {number} position
+         * @returns {boolean} Возвращает false если вышел, true если не вышел
+         */
+        function checkPosition (position){
+            if (position < 0) {
+                return false;
+            }
+            if (position > 9) {
+                return false;
+            }
+            return true;
+        };
+
         // Определяем направление и обновляем местоположение игрока в зависимости от направления.
         switch (direction) {
             case 2:
-                nextPosition.y++;
+                if (checkPosition(nextPosition.y + 1)){
+                    nextPosition.y++;
+                }
                 break;
             case 4:
-                nextPosition.x--;
+                if (checkPosition(nextPosition.x - 1)){
+                    nextPosition.x--;
+                }
                 break;
             case 6:
-                nextPosition.x++;
+                if (checkPosition(nextPosition.x + 1)){
+                    nextPosition.x++;
+                }
                 break;
             case 8:
-                nextPosition.y--;
+                if (checkPosition(nextPosition.y - 1)){
+                    nextPosition.y--;
+                }
+                break;
+            case 1:
+                if (checkPosition(nextPosition.y + 1)){
+                    nextPosition.y++;
+                }
+                if (checkPosition(nextPosition.x - 1)){
+                    nextPosition.x--;
+                }
+                break;
+            case 3:
+                if (checkPosition(nextPosition.y + 1)){
+                    nextPosition.y++;
+                }
+                if (checkPosition(nextPosition.x + 1)){
+                    nextPosition.x++;
+                }
+                break;
+            case 7:
+                if (checkPosition(nextPosition.y - 1)){
+                    nextPosition.y--;
+                }
+                if (checkPosition(nextPosition.x - 1)){
+                    nextPosition.x--;
+                }
+                break;
+            case 9:
+                if (checkPosition(nextPosition.y - 1)){
+                    nextPosition.y--;
+                }
+                if (checkPosition(nextPosition.x + 1)){
+                    nextPosition.x++;
+                }
                 break;
         }
-
         return nextPosition;
     },
 };
+
+
+
+        
