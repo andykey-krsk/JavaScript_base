@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 800;
+    margin: auto;
+}
+
+.board {
+
+}
+.row{
+    display: flex;
+}
+
+.cell-bl{
+    width: 10px;
+    height: 10px;
+    background-color: #444444;
+}
+
+.cell-w{
+    width: 10px;
+    height: 10px;
+    background-color: #dac360;
+}
+
