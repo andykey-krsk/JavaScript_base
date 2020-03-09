@@ -4,11 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Урок 5. Задание 3</title>
+    <link rel="stylesheet" href="magic.css">
     <link rel="stylesheet" href="style.css">
-    <script src="modalwindow.js"></script>
-  </head>
+    </head>
   <body>
+    
     <div class="container">
+      <div class="filter hidden" id="filter"></div>
       <h1>Заголовок</h1>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Possimus neque
@@ -29,12 +31,21 @@
         modi accusantium, nam maiores!
       </p>
       <div class="box">
-        <div class="button">Яви мне окно</div>
+        <button class="button" id="showBtn">Показать окно</button>
       </div>
       
-      <div class="modal-window">
-        <div class="button">спрячь</div>
+      <div class="modal-window hidden magictime" id="modal-window">
+        <div class="modal-window__content">
+          <p>
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nihil doloribus inventore, labore similique fugiat ab mollitia, corrupti ipsa, voluptate distinctio molestias minima ut vel sunt numquam reiciendis eveniet. Sequi, minima?
+          </p>
+          <div class="box">
+            <button class="button" id="closeBtn">ок</button>  
+          </div>
+          
+        </div>
       </div>
     </div>
+    <script src="modalwindow.js"></script>
   </body>
 </html>
