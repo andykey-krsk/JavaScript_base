@@ -54,6 +54,7 @@ let images = {
         }else {
             this.currentIndex--;
         }
+        
         const imageWithCurrentIndex = this.slides[this.currentIndex];
         imageWithCurrentIndex.classList.add('animation__right-to-left');
         imageWithCurrentIndex.classList.remove('hidden-slide');
@@ -70,6 +71,11 @@ let images = {
             this.currentIndex++;
         }
 
-        this.showImageWithCurrentIndex();
-    },
+        const imageWithCurrentIndex = this.slides[this.currentIndex];
+        imageWithCurrentIndex.classList.add('animation__left-to-right');
+        imageWithCurrentIndex.classList.remove('hidden-slide');
+        setTimeout(() => {
+            imageWithCurrentIndex.classList.remove('animation__left-to-right');
+        }, 500);
+    }
 };
