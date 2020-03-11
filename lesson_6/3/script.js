@@ -13,14 +13,46 @@ cartButtons.forEach(function(button){
 
 let cart = {
     products: {},
-
+    /**
+     * Метод добалляет продукт в корзину
+     * @param {{ id: string, price: string, name: string }}} product 
+     */
     addProduct(product){
         this.addProductToObject(product);
         this.renderProductToCart(product);
-        this.calcTotal();
-      //  this.addRemoveListeners();
+        this.renderTotal();
+        this.addRemoveButtonsListeners();
     },
 
+    /**
+     * Добавляем слушателей события клика по кнопкам удалить.
+     */
+    addRemoveButtonsListeners() {
+        let removeButtons = document.querySelectorAll('.productRemoveBtn');
+        for (let i = 0; i < removeButtons.length; i++) {
+            //важно указать именно this.removeProductListener, 
+            //чтобы это была одна и та же функция,
+            //а не несколько одинаковых.
+            removeButtons[i].addEventListener('click', this.removeProductListener);
+        }
+    },
+
+    /**
+     * Обработчик события клика по кнопке удаления товара.
+     * @param {MouseEvent} event
+     */
+    removeProductListener(event) {
+        //console.log(this); this будет указывать на кнопку, а не на объект basket
+        //здесь мы используем basket вместо this, потому что контекст вызова не имеет
+        //этих методов и нам надо явно обратиться к нашему объекту корзины
+        cart.removeProduct(event);
+        cart.renderTotal();
+    },
+
+    /**
+     * Метод добавляет продукт в объект с продуктами
+     * @param {{ id: string, price: string, name: string }} product 
+     */
     addProductToObject(product){
         if (this.products[product.id] == undefined){
             this.products[product.id] = {
@@ -33,6 +65,11 @@ let cart = {
         }
     },
 
+    /**
+     * етод отрисовывает продукт в корзине, если там такой уже есть просто
+     * увеличивает счетчик на 1
+     * @param {{ id: string, price: string, name: string }} product 
+     */
     renderProductToCart(product){
         let productExist = document.querySelector(`.productCount[data-id="${product.id}"]`);
         if (productExist) {
@@ -40,23 +77,37 @@ let cart = {
             return;
         }
 
+        //шаблон формирования строки в корзине
         let productRow = `
-            <tr>
-                <th scope="row">${product.id}</th>
-                <td>${product.name}</td>
-                <td>${product.price}</td>
-                <td class="productCount" data-id="${product.id}">1</td>
-                <td><i class="fas fa-times-circle cart__drop__item_cancel productRemoveBtn" data-id="${product.id}"></i></td>
-            </tr>
+            <div class="cart__row">
+                <div class="cart__hd id">${product.id}</div>
+                <div class="cart__hd name">${product.name}</div>
+                <div class="productCount cart__hd quantity" data-id="${product.id}">1</div>
+                <div class="cart__hd price">${product.price}</div>
+                <div class="cart__hd cancel">
+                <i class="fas fa-times-circle cart__drop__item_cancel productRemoveBtn" data-id="${product.id}"></i>
+                </div>
+            </div>
         `;
-        let tbody = document.querySelector('tbody');
+
+        //получение тэга куда вставлять строку
+        let tbody = document.querySelector('cart');
+
+        //вставка строки
         tbody.insertAdjacentHTML("beforeend", productRow);
     },
 
+    /**
+     * Метод отрисовывает общую сумму товаров корзины
+     */
     renderTotal() {
         document.querySelector('.total').textContent = this.calcTotal();
     },
 
+    /**
+     * Метод суммирует все повары находящиеся в корзине
+     * @returns {number} сумму цен товаров в корзине
+     */
     calcTotal() {
         let sum = 0;
         for (let key in this.products) {
@@ -64,4 +115,40 @@ let cart = {
         }
         return sum;
     },
+
+    /**
+     * Метод удаляет продукт из объекта продуктов, а также из корзины на странице.
+     * @param {MouseEvent} event
+     */
+    removeProduct(event) {
+        let id = event.srcElement.dataset.id;
+        this.removeProductFromObject(id);
+        this.removeProductFromBasket(id);
+    },
+
+    /**
+     * Метод удаляет товар из корзины. Если количество больше 1, то просто уменьшает его.
+     * @param {string} id
+     */
+    removeProductFromBasket(id) {
+        let countTd = document.querySelector(`.productCount[data-id="${id}"]`);
+        if (countTd.textContent == 1) {
+            countTd.parentNode.remove();
+        } else {
+            countTd.textContent--;
+        }
+    },
+
+    /**
+     * Метод удаляет продукт из объекта с продуктами.
+     * @param {string} id
+     */
+    removeProductFromObject(id) {
+        if (this.products[id].count == 1) {
+            delete this.products[id];
+        } else {
+            this.products[id].count--;
+        }
+    }
+
 };
