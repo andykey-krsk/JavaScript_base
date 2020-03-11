@@ -340,7 +340,7 @@ details[open] > summary::after {
   font-weight: bold;
   color: #222222;
   text-transform: uppercase;
-  margin-top: 10px; */
+  margin-top: 10px;
 }
 
 .cart__drop__button {
@@ -1945,5 +1945,3 @@ details[open] > .chekout__list::after {
 .sub__mrgin {
   margin-top: 0px;
 }
-
-/*# sourceMappingURL=style.css.map */
