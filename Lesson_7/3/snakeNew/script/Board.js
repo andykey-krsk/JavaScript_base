@@ -92,14 +92,14 @@ class Board {
         return nextCell === null;
     }
 
-    isNextStepToSnakeBoby(nextCellCoords){
-        let bodyCells = this.snake.body;
-        if (bodyCells.length > 4) {
-            bodyCells.forEach(element, function(){
-                return (nextCellCoords.x == element.x && nextCellCoords.y == element.y);
-           });
-        }
-    }
+    // isNextStepToSnakeBoby(nextCellCoords){
+    //     let bodyCells = this.snake.body;
+    //     if (bodyCells.length > 4) {
+    //         bodyCells.forEach(element, function(){
+    //             return (nextCellCoords.x == element.x && nextCellCoords.y == element.y);
+    //        });
+    //     }
+    // }
 
     /**
      * Метод рисует еду на игровом поле.

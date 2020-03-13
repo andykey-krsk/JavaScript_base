@@ -100,8 +100,8 @@ class Game {
      * true, иначе false.
      */
     isGameLost() {
-        if (this.board.isNextStepToSnakeBoby(this.snake.body[0])) {
-        //if (this.board.isNextStepToWall(this.snake.body[0])) {
+        //if (this.board.isNextStepToSnakeBoby(this.snake.body[0])) {
+        if (this.board.isNextStepToWall(this.snake.body[0])) {
             clearInterval(this.tickIdentifier);
             this.setMessage('Вы проиграли');
             return true;
