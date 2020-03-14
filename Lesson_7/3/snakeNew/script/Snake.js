@@ -10,6 +10,10 @@ class Snake {
         this.direction = 'down';
     }
 
+    init(settings){
+        this.settings = settings;
+    }
+
     /**
      * Меняем направление движения.
      * @param {string} newDirection направление может быть down, up, left, right.
@@ -72,6 +76,7 @@ class Snake {
                 newHeadCoords.x++;
                 break;
         }
+
         this.body.unshift(newHeadCoords);
         this.body.pop();
     }

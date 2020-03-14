@@ -91,15 +91,45 @@ class Board {
         let nextCell = this.getCellEl(nextCellCoords.x, nextCellCoords.y);
         return nextCell === null;
     }
+    
+    /**
+     * Метод телепортирует змейку
+     */
+    teleportSnake(){
+        if(this.snake.body[0].x > this.settings.colsCount){
+            this.snake.body[0].x = 1;
+        }
 
-    // isNextStepToSnakeBoby(nextCellCoords){
-    //     let bodyCells = this.snake.body;
-    //     if (bodyCells.length > 4) {
-    //         bodyCells.forEach(element, function(){
-    //             return (nextCellCoords.x == element.x && nextCellCoords.y == element.y);
-    //        });
-    //     }
-    // }
+        if(this.snake.body[0].x < 1){
+            this.snake.body[0].x = this.settings.colsCount;
+        }
+
+        if(this.snake.body[0].y > this.settings.rowsCount){
+            this.snake.body[0].y = 1;
+        }
+
+        if(this.snake.body[0].y < 1){
+            this.snake.body[0].y = this.settings.rowsCount;
+        }    
+    }
+
+    /**
+     * @param {Object} nextCellCoords - координаты ячейки, куда змейка собирается сделать шаг.
+     * @param {number} nextCellCoords.x
+     * @param {number} nextCellCoords.y
+     * @returns {boolean} 
+     */
+    isNextStepToSnakeBoby(nextCellCoords){
+       // const snakeBodyElems = this.getSnakeBodyElems(this.snake.body);
+        const bodyCells = this.snake.body;
+        if (bodyCells.length > 4) {
+            for (let i = 3; i < bodyCells.length; i++){
+                if (nextCellCoords.x == bodyCells[i].x && nextCellCoords.y == bodyCells[i].y){
+                    return true;
+                }
+            }
+        }
+    }
 
     /**
      * Метод рисует еду на игровом поле.

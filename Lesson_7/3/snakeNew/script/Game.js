@@ -2,6 +2,7 @@ class Game {
     constructor() {
         this.tickIdentifier = null;
         this.messageEl = document.getElementById('message');
+        this.scoreEl = document.getElementById('score');
     }
 
     /** 
@@ -60,8 +61,12 @@ class Game {
      * 4. заново отрисовывает положение змейки и еды
      */
     doTick() {
-        this.setMessage('Длинна змейки - ' + this.snake.body.length);
+        this.gameScore();
         this.snake.performStep();
+        if (this.board.isNextStepToWall(this.snake.body[0])) {
+            this.board.teleportSnake();
+        };
+
         if (this.isGameLost()) {
             return;
         }
@@ -78,6 +83,13 @@ class Game {
     }
 
     /**
+     * Метод следит за счетом игры
+     */
+    gameScore() {
+        this.scoreEl.innerText = 'Длинна змейки - ' + this.snake.body.length + ' (нужно наесть - ' + this.settings.winLength + ')';
+    }
+
+    /**
      * Метод проверяет выиграна ли игра, останавливает игру,
      * выводит сообщение о выигрыше.
      * @returns {boolean} если длина змейки достигла длины нужной
@@ -86,8 +98,7 @@ class Game {
     isGameWon() {
         if (this.snake.body.length == this.settings.winLength) {
             clearInterval(this.tickIdentifier);
-            this.setMessage('Длинна змейки - ' + this.snake.body.length + 
-                            '\nВы выиграли');
+            this.setMessage('Вы выиграли');
             return true;
         }
         return false;
@@ -100,8 +111,8 @@ class Game {
      * true, иначе false.
      */
     isGameLost() {
-        //if (this.board.isNextStepToSnakeBoby(this.snake.body[0])) {
-        if (this.board.isNextStepToWall(this.snake.body[0])) {
+        if (this.board.isNextStepToSnakeBoby(this.snake.body[0])) {
+        //if (this.board.isNextStepToWall(this.snake.body[0])) {
             clearInterval(this.tickIdentifier);
             this.setMessage('Вы проиграли');
             return true;
