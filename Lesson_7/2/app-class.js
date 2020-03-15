@@ -1,14 +1,16 @@
 "use strict";
 
-let ticTakToe = {
-    gameTableElement: document.getElementById('game'),
-    status: 'playing',
-    mapValues: [
-        ['', '', ''],
-        ['', '', ''],
-        ['', '', ''],
-    ],
-    phase: 'X',
+class TicTakToe {
+    constructor(){
+        this.gameTableElement = document.getElementById('game');
+        this.status = 'playing';
+        this.mapValues = [
+            ['', '', ''],
+            ['', '', ''],
+            ['', '', ''],
+        ];
+        this.phase = 'X';
+    }
 
     /**
      * Инициализация игры.
@@ -18,7 +20,7 @@ let ticTakToe = {
         this.renderMap();
         // Инициализируем обработчики событий.
         this.initEventHandlers();
-    },
+    }
 
     /**
      * Вывод ячеек в html.
@@ -34,7 +36,7 @@ let ticTakToe = {
                 tr.appendChild(td);
             }
         }
-    },
+    }
 
     /**
      * Инициализация обработчиков событий.
@@ -42,7 +44,7 @@ let ticTakToe = {
     initEventHandlers() {
         // Ставим обработчик, при клике на таблицу вызовется функция this.cellClickHandler.
         this.gameTableElement.addEventListener('click', event => this.cellClickHandler(event));
-    },
+    }
 
     /**
      * Обработчик события клика.
@@ -66,7 +68,7 @@ let ticTakToe = {
 
         // Меняем фигуру (крестик или нолик).
         this.togglePhase();
-    },
+    }
 
     /**
      * Проверка был ли корректный клик, что описан в событии event.
@@ -76,7 +78,7 @@ let ticTakToe = {
      */
     isCorrectClick(event) {
         return this.isStatusPlaying() && this.isClickByCell(event) && this.isCellEmpty(event);
-    },
+    }
 
     /**
      * Проверка что мы "играем", что игра не закончена.
@@ -84,7 +86,7 @@ let ticTakToe = {
      */
     isStatusPlaying() {
         return this.status === 'playing';
-    },
+    }
 
     /**
      * Проверка что клик был по ячейке.
@@ -94,7 +96,7 @@ let ticTakToe = {
      */
     isClickByCell(event) {
         return event.target.tagName === 'TD';
-    },
+    }
 
     /**
      * Проверка что в ячейку не ставили значение (крестик или нолик).
@@ -108,7 +110,7 @@ let ticTakToe = {
         let col = +event.target.dataset.col;
 
         return this.mapValues[row][col] === '';
-    },
+    }
 
     /**
      * Заполняет ячейку в которую кликнул пользователь в событии event.
@@ -123,7 +125,7 @@ let ticTakToe = {
         // Заполняем ячейку и ставим значение в массиве, в свойстве mapValues.
         this.mapValues[row][col] = this.phase;
         event.target.textContent = this.phase;
-    },
+    }
 
     /**
      * Проверка есть ли выигрышная ситуация на карте.
@@ -141,7 +143,7 @@ let ticTakToe = {
 
                this.isLineWon({ x: 0, y: 0 }, { x: 1, y: 1 }, { x: 2, y: 2 }) ||
                this.isLineWon({ x: 0, y: 2 }, { x: 1, y: 1 }, { x: 2, y: 0 });
-    },
+    }
 
     /**
      * Проверка есть ли выигрышная ситуация на линии.
@@ -153,14 +155,14 @@ let ticTakToe = {
     isLineWon(a, b, c) {
         let value = this.mapValues[a.y][a.x] + this.mapValues[b.y][b.x] + this.mapValues[c.y][c.x];
         return value === 'XXX' || value === '000';
-    },
+    }
 
     /**
      * Ставит статус игры в "остановлена".
      */
     setStatusStopped() {
         this.status = 'stopped';
-    },
+    }
 
     /**
      * Сообщает о победе.
@@ -168,14 +170,16 @@ let ticTakToe = {
     sayWonPhrase() {
         let figure = this.phase === 'X' ? 'Крестики' : 'Нолики';
         alert(`${figure} выиграли!`);
-    },
+    }
 
     /**
      * Меняет фигуру (крестик или нолик).
      */
     togglePhase() {
         this.phase = this.phase === 'X' ? '0' : 'X';
-    },
-};
+    }
 
+}
+
+const ticTakToe = new TicTakToe();
 ticTakToe.init();
