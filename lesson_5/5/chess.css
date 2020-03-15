@@ -1,0 +1,45 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: auto;
+}
+
+.board {
+
+}
+.row{
+    display: flex;
+}
+
+.cell{
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0.5px solid #dac360;
+}
+
+.cell-left{
+    background-color: #dac360;
+}
+
+.cell-bottom{
+    background-color: #dac360;
+    border-top: 0.5px solid #000;
+}
+
+.cell-bl{
+    background-color: #444444;
+    border: 0.5px solid #000;
+}
+
+.cell-w{
+    background-color: #dac360;
+    border: 0.5px solid #000;
+}
+
+
